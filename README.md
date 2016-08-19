@@ -8,7 +8,6 @@ mvc + BootStrap + ef + autofac
  2. EntityFramework做实体持久框架
  3. autofac做为依赖注入框架
 
-2.2016/8/19
-> 上传第一个版本
- 1. 新建基于BootStrap的登录页面和layout页面模板
- 2. 简单的登录验证
+2. 2016/8/19 上传第一个版本
+> 1. 新建基于BootStrap的登录页面和layout页面模板
+  2. 简单的登录验证
