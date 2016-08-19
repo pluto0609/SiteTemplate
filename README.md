@@ -1,5 +1,5 @@
 # SiteTemplate
-mvc + BootStrap + Jquery + ef + autofac
+mvc + BootStrap + Jquery + EntityFramework + autofac
  
 
 1. 概述
