@@ -1,0 +1,107 @@
+﻿@using Jaap.Framework
+@{
+    Layout = null;
+    var redirectUrl = ViewBag.RedirectUrl;
+    var userName = string.Empty;
+    if (ViewBag.UserName != null)
+    {
+        userName = (string)ViewBag.UserName;
+    }
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+    <title>Signin Template for Bootstrap</title>
+    <link href="@Url.Content("~")content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="@Url.Content("~")content/css/signin.css" rel="stylesheet">
+    <!--[if lt IE 9]><script src="@Url.Content("~")content/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="@Url.Content("~")content/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]>
+        <script src="@Url.Content("~")content/js/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="@Url.Content("~")content/js/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputusername" class="sr-only">Email address</label>
+        <input type="text" id="inputusername" class="form-control" value="@(!userName.IsNullOrEmpty()?userName:"")" placeholder="Username" @(userName.IsNullOrEmpty()?"autofocus":"")>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required @(!userName.IsNullOrEmpty() ? "autofocus" : "")>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <a class="btn btn-lg btn-primary btn-block __btnsingin">Sign in</a>
+    </div>
+
+    <div id="myAlert" class="alert alert-warning" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>警告！</strong>您的网络连接有问题。
+    </div>
+
+
+</div> <!-- /container -->
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="@Url.Content("~")content/js/ie10-viewport-bug-workaround.js"></script>
+<script src="@Url.Content("~")content/js/jquery.min.js"></script>
+<script src="@Url.Content("~")content/js/bootstrap.min.js"></script>
+<script>
+    var loginUrl = '@Url.Action("Login", "Login")';
+    var redirectUrl = '@redirectUrl';
+
+    $(function() {
+        $('body')
+            .on('keydown', function (e) {
+                var key = e.keyCode || e.which;
+                if (key === 13) {
+                    $('.__btnsingin').click();
+                }
+            })
+            .on('click','.__btnsingin',function() {
+                    var data = {
+                        userName: $('#inputusername').val(),
+                        password: $('#inputPassword').val()
+                    };
+
+                    $.ajax({
+                        url: loginUrl,
+                        type: "POST",
+                        data: data,
+                        success: function(d) {
+                            if (d.S == 101) {
+                                location.assign(redirectUrl);
+                            } else {
+                                alert(d.msg);
+                            }
+                        }
+                    })
+            })
+        
+    });
+</script>
+  
+
+
+
+
+
+
+
+</body>
+
+</html>
